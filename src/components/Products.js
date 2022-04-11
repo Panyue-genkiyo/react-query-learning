@@ -1,9 +1,8 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 
-const Products = React.memo(({ data, loading, error }) => {
-  
-  if(error) return <h2>{error}</h2>;
+const Products = React.memo(({ data }) => {
+
   return <section>
     <div className='products'>
       {
@@ -12,8 +11,6 @@ const Products = React.memo(({ data, loading, error }) => {
         ))
       }
     </div>
-    
-    { loading && <h2 style={{textAlign: 'center'}}>Loading...</h2> }
   </section>;
 });
 
