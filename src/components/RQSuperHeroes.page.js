@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import axios from "axios";
+import {useState} from "react";
 
 const fetchReactHeroData = async () => {
     //自动抛出error
@@ -9,6 +10,19 @@ const fetchReactHeroData = async () => {
 
 //useQuery抓取数据,取代useState+useEffect
 export const RQSuperHeroesPage = () => {
+
+    // const [ refetchInterval, setRefetchInterval ] = useState(3000);
+    const onSuccess = (data) => {
+        console.log('side effect after fetching data successfully', data);
+        // if(data.length === 4) setRefetchInterval(false)
+    }
+
+    const onError = (error) => {
+        console.log('side effect after encountering an error', error);
+        // setRefetchInterval(false)
+    }
+
+
   //refetch给用户事件提供了一个方便的方式来重新加载数据
     //第一次refetch isloading: true和isFeatching: true
     //后面的再次refecth isloading: false和isFeatching: true //缓存机制 cache
@@ -26,9 +40,11 @@ export const RQSuperHeroesPage = () => {
             //refetchOnMount: true,  //data is fetched on every time the component is mounted 默认行为 (还可以为always，不管状态是否是stale都会再次请求)
             // refetchOnMount: false, //就第一次请求数据，不会再次请求数据
             // refetchOnWindowFocus: true //回到application 再次请求
-            //refetchInterval: 5000, //每隔2s请求一次数据 默认false 0s 且当window blur时不会再次请求数据，除非设置refetchIntervalInBackground: true
-            // refetchIntervalInBackground: true, //默认false
-           enabled: false //让它不要在组件加载时就fetch数据 一次都不要 停止自动加载 权利在我
+            //refetchInterval, //每隔2s请求一次数据 默认false 0s 且当window blur时不会再次请求数据，除非设置refetchIntervalInBackground: true
+            //refetchIntervalInBackground: true, //默认false
+           // enabled: false //让它不要在组件加载时就fetch数据 一次都不要 停止自动加载 权利在我
+           onSuccess,
+           onError
       }
   );
 
