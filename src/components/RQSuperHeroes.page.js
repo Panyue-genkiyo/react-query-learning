@@ -13,9 +13,14 @@ export const RQSuperHeroesPage = () => {
   const { isLoading, data, isError, error, isFetching } = useQuery(
       "super-heroes",
       fetchReactHeroData,
-      // {
-      //     cacheTime: 5000, //5s 默认每个query的cache时间为5min
-      // }
+      {
+            //cacheTime: 5000, //5s 默认每个query的cache时间为5min
+           /*
+              在数据不经常变化的情况下，设置在30s内不会背后refetch数据，真正看到cache数据
+              超过30s后，在缓冲时间内重新背后refetch最新数据 如此往复
+            */
+            staleTime: 30000
+      }
   );
 
   if(isLoading) return <div>Loading...</div>;
