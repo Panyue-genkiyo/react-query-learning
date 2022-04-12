@@ -20,9 +20,11 @@ export const RQSuperHeroesPage = () => {
               超过30s后，在缓冲时间内重新背后refetch最新数据 如此往复
              */
             //staleTime: 30000, //默认0s 这里单位毫秒
-            refetchOnMount: true,  //data is fetched on every time the component is mounted 默认行为 (还可以为always，不管状态是否是stale都会再次请求)
+            //refetchOnMount: true,  //data is fetched on every time the component is mounted 默认行为 (还可以为always，不管状态是否是stale都会再次请求)
             // refetchOnMount: false, //就第一次请求数据，不会再次请求数据
            // refetchOnWindowFocus: true //回到application 再次请求
+            refetchInterval: 5000, //每隔2s请求一次数据 默认false 0s 且当window blur时不会再次请求数据，除非设置refetchIntervalInBackground: true
+            // refetchIntervalInBackground: true, //默认false
       }
   );
 
