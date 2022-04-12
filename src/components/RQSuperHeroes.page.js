@@ -9,12 +9,15 @@ const fetchReactHeroData = async () => {
 
 //useQuery抓取数据,取代useState+useEffect
 export const RQSuperHeroesPage = () => {
-
-  const { isLoading, data, isError, error, isFetching } = useQuery(
+  //refetch给用户事件提供了一个方便的方式来重新加载数据
+    //第一次refetch isloading: true和isFeatching: true
+    //后面的再次refecth isloading: false和isFeatching: true //缓存机制 cache
+  const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
       "super-heroes",
       fetchReactHeroData,
       {
             //cacheTime: 5000, //5s 默认每个query的cache时间为5min
+            // cacheTime: 1000,
             /*
               在数据不经常变化的情况下，设置在30s内不会背后refetch数据，真正看到cache数据
               超过30s后，在缓冲时间内重新背后refetch最新数据 如此往复
@@ -22,30 +25,34 @@ export const RQSuperHeroesPage = () => {
             //staleTime: 30000, //默认0s 这里单位毫秒
             //refetchOnMount: true,  //data is fetched on every time the component is mounted 默认行为 (还可以为always，不管状态是否是stale都会再次请求)
             // refetchOnMount: false, //就第一次请求数据，不会再次请求数据
-           // refetchOnWindowFocus: true //回到application 再次请求
-            refetchInterval: 5000, //每隔2s请求一次数据 默认false 0s 且当window blur时不会再次请求数据，除非设置refetchIntervalInBackground: true
+            // refetchOnWindowFocus: true //回到application 再次请求
+            //refetchInterval: 5000, //每隔2s请求一次数据 默认false 0s 且当window blur时不会再次请求数据，除非设置refetchIntervalInBackground: true
             // refetchIntervalInBackground: true, //默认false
+           enabled: false //让它不要在组件加载时就fetch数据 一次都不要 停止自动加载 权利在我
       }
   );
 
-  if(isLoading) return <div>Loading...</div>;
-
-    //如果出错
-  if(isError) return <h2>{error.message}</h2>
 
     //isLoading !== isFetching(初次两者都是true，后面只要在cache time里，isLoading都不会变成true
     //而isFetching会每次背后请求更新cache数据 所以会存在(isLoading: false, isFetching: true)
     //每次回到该组件时都会重新背后加载, 更新cache
     console.log({isLoading, isFetching})
 
+
+    if(isLoading || isFetching) return <div>Loading...</div>;
+
+    //如果出错
+  if(isError) return <h2>{error.message}</h2>
+
   return (
       <>
         <h2>UseQuery React Heroes Page</h2>
         {
-          data.map(hero => (
+          data?.map(hero => (
               <div key={hero.id}>{hero.name}</div>
           ))
         }
+          <button onClick={refetch}>fetch heroes</button>
       </>
   )
 }
