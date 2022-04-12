@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+//常规方式useState和useEffect管理server state
 export const SuperHeroesPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
