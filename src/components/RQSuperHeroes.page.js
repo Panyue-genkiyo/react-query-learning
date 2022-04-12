@@ -42,9 +42,14 @@ export const RQSuperHeroesPage = () => {
             // refetchOnWindowFocus: true //回到application 再次请求
             //refetchInterval, //每隔2s请求一次数据 默认false 0s 且当window blur时不会再次请求数据，除非设置refetchIntervalInBackground: true
             //refetchIntervalInBackground: true, //默认false
-           // enabled: false //让它不要在组件加载时就fetch数据 一次都不要 停止自动加载 权利在我
+            // enabled: false //让它不要在组件加载时就fetch数据 一次都不要 停止自动加载 权利在我
            onSuccess,
-           onError
+           onError,
+          //transform data
+           select: (data) => {
+               //注意select完成之后才会把data回传到onSuccess回调函数上
+               return data.map(item => item.name);
+           }
       }
   );
 
@@ -63,11 +68,16 @@ export const RQSuperHeroesPage = () => {
   return (
       <>
         <h2>UseQuery React Heroes Page</h2>
-        {
-          data?.map(hero => (
-              <div key={hero.id}>{hero.name}</div>
-          ))
-        }
+        {/*{*/}
+        {/*  data?.map(hero => (*/}
+        {/*      <div key={hero.id}>{hero.name}</div>*/}
+        {/*  ))*/}
+        {/*}*/}
+          {
+              data?.map(hero => (
+                  <div key={hero}>{hero}</div>
+              ))
+          }
           <button onClick={refetch}>fetch heroes</button>
       </>
   )
