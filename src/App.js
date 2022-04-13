@@ -3,6 +3,7 @@ import './App.css'
 import { HomePage } from './components/Home.page'
 import { RQSuperHeroesPage } from './components/RQSuperHeroes.page'
 import { SuperHeroesPage } from './components/SuperHeroes.page'
+import RQSuperHeroPage from "./components/RQSuperHero.page";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route path='/super-heroes'>
             <SuperHeroesPage />
+          </Route>
+          <Route path='/rq-super-heroes/:id'>
+            <RQSuperHeroPage/>
           </Route>
           <Route path='/rq-super-heroes'>
             <RQSuperHeroesPage />
