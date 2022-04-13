@@ -5,6 +5,7 @@ import { RQSuperHeroesPage } from './components/RQSuperHeroes.page'
 import { SuperHeroesPage } from './components/SuperHeroes.page'
 import RQSuperHeroPage from "./components/RQSuperHero.page";
 import ParallelQueriesPage from "./components/ParallelQueries.page";
+import DynamicParallelQueryPage from "./components/DynamicParallelQuery.page";
 
 function App() {
   return (
@@ -24,9 +25,15 @@ function App() {
             <li>
               <Link to='/parallel-queries'>Parallel Queries</Link>
             </li>
+            <li>
+              <Link to='/dynamic-parallel-queries'>Dynamic Parallel Queries</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
+          <Route path='/dynamic-parallel-queries'>
+            <DynamicParallelQueryPage ids={[1,3]}/>
+          </Route>
           <Route path='/parallel-queries'>
             <ParallelQueriesPage/>
           </Route>
