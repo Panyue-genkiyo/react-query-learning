@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 import {useState} from "react";
+import { Link } from "react-router-dom";
 import useSuperHeroesData from "../hooks/useSuperHeroesData";
 
 
@@ -9,12 +10,12 @@ export const RQSuperHeroesPage = () => {
 
     // const [ refetchInterval, setRefetchInterval ] = useState(3000);
     const onSuccess = (data) => {
-        console.log('side effect after fetching data successfully', data);
+        // console.log('side effect after fetching data successfully',data);
         // if(data.length === 4) setRefetchInterval(false)
     }
 
     const onError = (error) => {
-        console.log('side effect after encountering an error', error);
+        // console.log('side effect after encountering an error', error);
         // setRefetchInterval(false)
     }
 
@@ -68,7 +69,9 @@ export const RQSuperHeroesPage = () => {
         <h2>UseQuery React Heroes Page</h2>
         {
           data?.map(hero => (
-              <div key={hero.id}>{hero.name}</div>
+              <div key={hero.id}>
+                  <Link to={`/rq-super-heroes/${hero.id}`}>{hero.name}</Link>
+              </div>
           ))
         }
           {/*{*/}
