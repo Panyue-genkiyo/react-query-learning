@@ -2,7 +2,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-const fetchSuperHeroDetail = async ({ queryKey }) => {
+export const fetchSuperHeroDetail = async ({ queryKey }) => {
     const id = queryKey[1]; //自动将key传入
     const { data } = await axios.get(`http://localhost:4000/superheroes/${id}`);
     return data;
