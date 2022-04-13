@@ -4,6 +4,7 @@ import { HomePage } from './components/Home.page'
 import { RQSuperHeroesPage } from './components/RQSuperHeroes.page'
 import { SuperHeroesPage } from './components/SuperHeroes.page'
 import RQSuperHeroPage from "./components/RQSuperHero.page";
+import ParallelQueriesPage from "./components/ParallelQueries.page";
 
 function App() {
   return (
@@ -20,9 +21,15 @@ function App() {
             <li>
               <Link to='/rq-super-heroes'>RQ Super Heroes</Link>
             </li>
+            <li>
+              <Link to='/parallel-queries'>Parallel Queries</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
+          <Route path='/parallel-queries'>
+            <ParallelQueriesPage/>
+          </Route>
           <Route path='/super-heroes'>
             <SuperHeroesPage />
           </Route>
