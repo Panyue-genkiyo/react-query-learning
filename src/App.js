@@ -8,6 +8,7 @@ import ParallelQueriesPage from "./components/ParallelQueries.page";
 import DynamicParallelQueryPage from "./components/DynamicParallelQuery.page";
 import DependentQueriesPage from "./components/DependentQueries.page";
 import PaginationQueriesPage from "./components/PaginationQueries.page";
+import {InfiniteQueriesPage} from "./components/InfiniteQueries.page";
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
           </ul>
         </nav>
         <Switch>
+          <Route path='/infinite-queries'>
+              <InfiniteQueriesPage/>
+          </Route>
           <Route path='/pagination-queries'>
             <PaginationQueriesPage/>
           </Route>
