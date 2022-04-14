@@ -71,7 +71,7 @@ export const RQSuperHeroesPage = () => {
     }
 
 
-    if(isLoading || isFetching) return <div>Loading...</div>;
+    if(isLoading) return <div>Loading...</div>;
 
     //如果出错
   if(isError) return <h2>{error.message}</h2>
