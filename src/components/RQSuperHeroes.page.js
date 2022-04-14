@@ -2,11 +2,15 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import {useState} from "react";
 import { Link } from "react-router-dom";
-import useSuperHeroesData from "../hooks/useSuperHeroesData";
+import useSuperHeroesData, { useAddHeroData } from "../hooks/useSuperHeroesData";
 
 
 //useQuery抓取数据,取代useState+useEffect
 export const RQSuperHeroesPage = () => {
+
+
+    const [name, setName] = useState("");
+    const [alterEgo, setAlterEgo] = useState("");
 
     // const [ refetchInterval, setRefetchInterval ] = useState(3000);
     const onSuccess = (data) => {
@@ -52,11 +56,19 @@ export const RQSuperHeroesPage = () => {
   // );
     const {data, isLoading, isFetching, error, isError, refetch} = useSuperHeroesData(onSuccess, onError)
 
+    const { mutate: addHero } = useAddHeroData()
+
 
     //isLoading !== isFetching(初次两者都是true，后面只要在cache time里，isLoading都不会变成true
     //而isFetching会每次背后请求更新cache数据 所以会存在(isLoading: false, isFetching: true)
     //每次回到该组件时都会重新背后加载, 更新cache
-    console.log({isLoading, isFetching})
+    // console.log({isLoading, isFetching})
+
+    const handleAddHeroClick = () => {
+        console.log({name, alterEgo});
+        const hero = {name, alterEgo};
+        addHero(hero);
+    }
 
 
     if(isLoading || isFetching) return <div>Loading...</div>;
@@ -67,6 +79,31 @@ export const RQSuperHeroesPage = () => {
   return (
       <>
         <h2>UseQuery React Heroes Page</h2>
+        <div>
+            <div>
+                <label htmlFor='name'>name:</label>
+                <input
+                    type="text"
+                    value={name}
+                    placeholder='please add name'
+                    id='name'
+                    name='name'
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+            <div>
+                <label htmlFor='alterEgo'>alterEgo:</label>
+                <input
+                    type="text"
+                    value={alterEgo}
+                    placeholder='please add alterEgo'
+                    id='alterEgo'
+                    name='alterEgo'
+                    onChange={(e) => setAlterEgo(e.target.value)}
+                />
+            </div>
+            <button onClick={handleAddHeroClick}>add hero</button>
+        </div>
         {
           data?.map(hero => (
               <div key={hero.id}>
