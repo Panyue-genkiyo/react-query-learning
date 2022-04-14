@@ -7,6 +7,7 @@ import RQSuperHeroPage from "./components/RQSuperHero.page";
 import ParallelQueriesPage from "./components/ParallelQueries.page";
 import DynamicParallelQueryPage from "./components/DynamicParallelQuery.page";
 import DependentQueriesPage from "./components/DependentQueries.page";
+import PaginationQueriesPage from "./components/PaginationQueries.page";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </ul>
         </nav>
         <Switch>
+          <Route path='/pagination-queries'>
+            <PaginationQueriesPage/>
+          </Route>
           <Route path='/dependent-queries'>
             <DependentQueriesPage email={'vishwas@example.com'}/>
           </Route>
