@@ -23,15 +23,38 @@ export const useAddHeroData = () => {
     return useMutation(
         addSuperHero,
         {
-            onSuccess: (data) => {
-                //加入成功后refetch superHeroes data
-                // queryClient.invalidateQueries('super-heroes');
-                //这里的data是response返回的
+            // onSuccess: (data) => {
+            //     //加入成功后refetch superHeroes data
+            //     // queryClient.invalidateQueries('super-heroes');
+            //     //这里的data是response返回的
+            //     queryClient.setQueryData('super-heroes', (oldQueryData) => {
+            //         //直接通过post请求返回的数据更新query cache 避免多一次的网络请求
+            //         // console.log(oldQueryData);
+            //         return [...oldQueryData, data.data]
+            //     });
+            // }
+            onMutate: async (newHero) => {
+                //这个函数接收到的参数和addSuperHero是一样的
+                await queryClient.cancelQueries('super-heroes');
+                const previousHeroData = await queryClient.getQueryData('super-heroes'); //cached data
                 queryClient.setQueryData('super-heroes', (oldQueryData) => {
                     //直接通过post请求返回的数据更新query cache 避免多一次的网络请求
                     // console.log(oldQueryData);
-                    return [...oldQueryData, data.data]
+                    return [...oldQueryData, { id: oldQueryData.length + 1, ...newHero }];
                 });
+                return {
+                    previousHeroData,
+                }
+            },
+            onError: (_error, _hero, context) => {
+                //mutate error的时候触发该回调函数
+                //在context对象上我们可以接到上面onMutate函数所返回的previousHeroData，方便我们回滚数据
+                queryClient.setQueryData('super-heroes', context.previousHeroData);
+            },
+            onSettled: () => {
+                //这个函数在mutation完成后(不管成功还是失败)触发，可以在这里做一些清理工作
+                //一般refetch data
+                queryClient.invalidateQueries('super-heroes');
             }
         }
     )
