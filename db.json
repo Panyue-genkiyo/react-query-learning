@@ -14,6 +14,21 @@
       "id": 3,
       "name": "Wonder Woman",
       "alterEgo": "Princess Diana"
+    },
+    {
+      "name": "你好",
+      "alterEgo": "草",
+      "id": 4
+    },
+    {
+      "name": "hello",
+      "alterEgo": "ssss",
+      "id": 5
+    },
+    {
+      "name": "还好",
+      "alterEgo": "what",
+      "id": 6
     }
   ],
   "friends": [
@@ -39,7 +54,11 @@
   "channels": [
     {
       "id": "codevolution",
-      "courses": ["react", "vue", "angular"]
+      "courses": [
+        "react",
+        "vue",
+        "angular"
+      ]
     }
   ],
   "colors": [
