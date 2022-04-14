@@ -15,7 +15,7 @@ const useSuperHeroData = (id) => {
     const queryClient = useQueryClient();
     return useQuery(["superhero", id], fetchSuperHeroDetail, {
         enabled: !!id, //当id存在是才执行
-        //不会change loading状态到true
+        //不会change loading状态到true 跳过初始的加载状态
         initialData: () => {
             const hero = queryClient.getQueryData('super-heroes')?.find(hero => hero.id === +id);
             if(hero) return { hero }
