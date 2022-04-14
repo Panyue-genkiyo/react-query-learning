@@ -24,7 +24,6 @@ export const RQSuperHeroesPage = () => {
     }
 
 
-
   //refetch给用户事件提供了一个方便的方式来重新加载数据
     //第一次refetch isloading: true和isFeatching: true
     //后面的再次refecth isloading: false和isFeatching: true //缓存机制 cache
@@ -66,7 +65,8 @@ export const RQSuperHeroesPage = () => {
 
     const handleAddHeroClick = () => {
         console.log({name, alterEgo});
-        const hero = {name, alterEgo};
+        if(!name.trim() &&  !alterEgo.trim()) return;
+        const hero = {name: name.trim(), alterEgo : alterEgo.trim()};
         addHero(hero);
     }
 
