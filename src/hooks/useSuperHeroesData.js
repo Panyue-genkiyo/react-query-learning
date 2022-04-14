@@ -23,9 +23,15 @@ export const useAddHeroData = () => {
     return useMutation(
         addSuperHero,
         {
-            onSuccess: () => {
+            onSuccess: (data) => {
                 //加入成功后refetch superHeroes data
-                queryClient.invalidateQueries('super-heroes');
+                // queryClient.invalidateQueries('super-heroes');
+                //这里的data是response返回的
+                queryClient.setQueryData('super-heroes', (oldQueryData) => {
+                    //直接通过post请求返回的数据更新query cache 避免多一次的网络请求
+                    // console.log(oldQueryData);
+                    return [...oldQueryData, data.data]
+                });
             }
         }
     )
