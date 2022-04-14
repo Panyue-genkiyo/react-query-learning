@@ -14,6 +14,16 @@
       "id": 3,
       "name": "Wonder Woman",
       "alterEgo": "Princess Diana"
+    },
+    {
+      "name": "sss",
+      "alterEgo": "sss",
+      "id": 4
+    },
+    {
+      "name": "没事了",
+      "alterEgo": "草草coa",
+      "id": 5
     }
   ],
   "friends": [
