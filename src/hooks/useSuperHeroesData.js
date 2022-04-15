@@ -34,7 +34,7 @@ export const useAddHeroData = () => {
             //     });
             // }
             onMutate: async (newHero) => {
-                //这个函数接收到的参数和addSuperHero是一样的
+                //这个函数接收到的参数和addSuperHero是一样的注意
                 await queryClient.cancelQueries('super-heroes');
                 const previousHeroData = await queryClient.getQueryData('super-heroes'); //cached data
                 queryClient.setQueryData('super-heroes', (oldQueryData) => {
@@ -42,14 +42,17 @@ export const useAddHeroData = () => {
                     // console.log(oldQueryData);
                     return [...oldQueryData, { id: oldQueryData.length + 1, ...newHero }];
                 });
-                return {
-                    previousHeroData,
-                }
+                // return {
+                //     previousHeroData,
+                // }
+                return () => queryClient.setQueryData('super-heroes', previousHeroData); //这里的回传直接变成onError第三个参数
             },
-            onError: (_error, _hero, context) => {
+            onError: (error, _hero, context) => {
                 //mutate error的时候触发该回调函数
                 //在context对象上我们可以接到上面onMutate函数所返回的previousHeroData，方便我们回滚数据
-                queryClient.setQueryData('super-heroes', context.previousHeroData);
+                // queryClient.setQueryData('super-heroes', context.previousHeroData);
+                console.error(error);
+                if(context) context();
             },
             onSettled: () => {
                 //这个函数在mutation完成后(不管成功还是失败)触发，可以在这里做一些清理工作
