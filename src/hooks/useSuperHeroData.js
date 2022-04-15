@@ -22,7 +22,7 @@ const useSuperHeroData = (id) => {
             if(hero) return { hero }
             else return undefined;
         },
-        initialStale: true, //?
+        initialStale: true,
     });
 }
 
