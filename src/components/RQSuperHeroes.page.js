@@ -1,5 +1,4 @@
-import { useQuery } from "react-query";
-import axios from "axios";
+// import { useQueryClient } from "react-query";
 import {useState} from "react";
 import { Link } from "react-router-dom";
 import useSuperHeroesData, { useAddHeroData } from "../hooks/useSuperHeroesData";
@@ -11,11 +10,17 @@ export const RQSuperHeroesPage = () => {
 
     const [name, setName] = useState("");
     const [alterEgo, setAlterEgo] = useState("");
+    // const queryClient = useQueryClient();
 
     // const [ refetchInterval, setRefetchInterval ] = useState(3000);
     const onSuccess = (data) => {
         // console.log('side effect after fetching data successfully',data);
         // if(data.length === 4) setRefetchInterval(false)
+        console.log(data)
+        //设置缓存 下面不可行
+        // data.forEach(hero => {
+        //     queryClient.setQueryData(['superhero', hero.id], hero);
+        // });
     }
 
     const onError = (error) => {
